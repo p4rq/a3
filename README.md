@@ -1,7 +1,8 @@
 # Project A3
 
 Welcome to Project A3, a repository created by [p4rq]! This project is built using Node.js and Express.js, and it follows the MVC (Model-View-Controller) design pattern.
-
+ADMIN USERNAME: anuarbek
+PASSWORD: anuarbek
 ## Structure
 
 This project contains the following main directories and files:
