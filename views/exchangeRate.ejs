@@ -69,6 +69,10 @@
 
     <!-- User Input Form -->
     <form action="/refreshDataForExchangeRate" method="post" class="mt-4">
+      <div class="mb-3">
+        <label for="additionalData" class="form-label">Additional Data</label>
+        <input type="text" id="additionalData" name="additionalData" class="form-control" placeholder="Enter additional data">
+      </div>
         <button type="submit" class="btn btn-primary">Refresh Data</button>
       </form>
     <%= console.log(exchangeRateData) %>
