@@ -3,7 +3,6 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const User = require('../models/user');
 
-// Middleware to check if the user is an admin
 const isAdmin = (req, res, next) => {
   if (req.session.userId && req.session.isAdmin) {
     next();
@@ -12,7 +11,6 @@ const isAdmin = (req, res, next) => {
   }
 };
 
-// Route to display the admin panel
 router.get('/', (req, res) => {
   // Find all users (not deleted)
   User.find({ deletionDate: null })
@@ -25,7 +23,6 @@ router.get('/', (req, res) => {
     });
 });
 
-// Route to update user data
 router.post('/update/:userId', (req, res) => {
   const { newUsername, newUserId, newIsAdmin } = req.body;
 
@@ -35,7 +32,6 @@ router.post('/update/:userId', (req, res) => {
     updateDate: new Date(),
   };
 
-  // Check if newUsername is provided
   if (newUsername) {
     updateFields.username = newUsername;
   }
@@ -51,7 +47,6 @@ router.post('/update/:userId', (req, res) => {
     });
 });
 
-// Route to delete a user (sets deletionDate)
 router.post('/delete/:userId', (req, res) => {
   User.findByIdAndUpdate(req.params.userId, { deletionDate: new Date() })
     .then((deletedUser) => {
