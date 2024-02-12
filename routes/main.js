@@ -8,7 +8,6 @@ router.get('/', async (req, res) => {
   try {
     const newsData = await News.find().sort({ timestamp: -1 }).limit(1);
 
-    // Передаем информацию о статусе аутентификации пользователя
     const userAuthenticated = req.session.userId ? true : false;
 
     res.render('main', { newsData, userAuthenticated });
@@ -22,7 +21,6 @@ router.get('/exchangeRate', async (req, res) => {
   try {
     const exchangeRateData = await ExchangeRate.find().sort({ timestamp: -1 }).limit(1);
 
-    // Передаем информацию о статусе аутентификации пользователя
     const userAuthenticated = req.session.userId ? true : false;
 
     res.render('exchangeRate', { exchangeRateData, userAuthenticated });
@@ -55,14 +53,12 @@ router.post('/refreshDataForExchangeRate', async (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
-  // Очищаем информацию о пользователе в сессии
   req.session.destroy((err) => {
     if (err) {
       console.error('Error destroying session:', err);
       return res.status(500).send('Internal Server Error');
     }
 
-    // Перенаправляем на главную страницу или куда-либо еще
     res.redirect('/');
   });
 });
