@@ -4,7 +4,6 @@ const { body, validationResult } = require('express-validator');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 
-// Login route with input validation
 router.get('', (req, res) => {
   res.render('../views/login.ejs', { error: null }); // Define 'error' as null initially
 });
@@ -25,13 +24,11 @@ router.post('/', [
     const user = await User.findOne({ username });
 
     if (user) {
-      // Check if the user has been soft-deleted
       if (user.deletionDate) {
         console.log('Login Failed - User has been deleted');
         return res.render('../views/login.ejs', { error: 'Invalid username or password' });
       }
 
-      // Check password
       if (bcrypt.compareSync(password, user.password)) {
         console.log('Login Successful:', user);
 
@@ -48,7 +45,6 @@ router.post('/', [
       }
     }
 
-    // If the user is not found or password does not match
     console.log('Login Failed');
     return res.render('../views/login.ejs', { error: 'Invalid username or password' });
 
