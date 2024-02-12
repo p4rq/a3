@@ -7,7 +7,6 @@ const getNewsData = async (userRequest) => {
   try {
     const newsApiResponse = await axios.get(`https://newsapi.org/v2/top-headlines?apiKey=${apiKey}&country=us`);
     
-    // Сохранение данных в MongoDB
     const newsData = new News({
       data: newsApiResponse.data,
       userRequest,
@@ -27,14 +26,14 @@ const getNewsData = async (userRequest) => {
 
 const getExchangeRateData = async (userRequest) => {
     const apiKey = 'fb451f3577efc62b1ab658c1';
-    const baseCurrency = 'USD'; // Исходная валюта (тенге)
+    const baseCurrency = 'USD';
     const exchangeRateApiUrl = `https://open.er-api.com/v6/latest/${baseCurrency}?apikey=${apiKey}`;
   
     try {
-      // Запрос данных о курсах валют
+ 
       const exchangeRateApiResponse = await axios.get(exchangeRateApiUrl);
   
-      // Сохранение данных в MongoDB
+  
       const exchangeRateData = new ExchangeRate({
         data: exchangeRateApiResponse.data,
         userRequest,
@@ -42,7 +41,7 @@ const getExchangeRateData = async (userRequest) => {
       });
       await exchangeRateData.save();
   
-      // Сохранение запроса в истории
+  
       await saveRequestHistory(userRequest, 'Exchange Rate Data');
   
       return { success: true, message: 'Данные курсов валют успешно получены и сохранены' };
